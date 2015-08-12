@@ -68,12 +68,15 @@ func GetConfigFromFile(fileName string) map[string]string {
 	// Open the file
 	contents, err := ioutil.ReadFile(fileName)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	// Unmarshal the JSON content
 	configMap := make(map[string]string)
-	json.Unmarshal(contents, &configMap)
+	err = json.Unmarshal(contents, &configMap)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	return configMap
 }
